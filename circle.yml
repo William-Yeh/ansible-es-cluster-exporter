@@ -1,0 +1,33 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker version
+
+    - docker build  -f test/Dockerfile-ubuntu14.04      -t es_cluster_exporter_trusty       .
+    - docker build  -f test/Dockerfile-ubuntu12.04      -t es_cluster_exporter_precise      .
+    - docker build  -f test/Dockerfile-debian8          -t es_cluster_exporter_jessie       .
+    - docker build  -f test/Dockerfile-debian7          -t es_cluster_exporter_wheezy       .
+    - docker build  -f test/Dockerfile-centos7          -t es_cluster_exporter_centos7      .
+    - docker build  -f test/Dockerfile-centos6          -t es_cluster_exporter_centos6      .
+
+
+test:
+  override:
+    - docker run  -v $(pwd):/data  es_cluster_exporter_trusty
+    - docker run  -v $(pwd):/data  es_cluster_exporter_precise
+    - docker run  -v $(pwd):/data  es_cluster_exporter_jessie
+    - docker run  -v $(pwd):/data  es_cluster_exporter_wheezy
+    - docker run  -v $(pwd):/data  es_cluster_exporter_centos7
+    - docker run  -v $(pwd):/data  es_cluster_exporter_centos6
+
+    - echo "==> Validating the test results..."
+    - grep '^es_up' result-ubuntu14.04
+    - grep '^es_up' result-ubuntu12.04
+    - grep '^es_up' result-centos7
+    - grep '^es_up' result-centos6
+    - grep '^es_up' result-debian8
+    - grep '^es_up' result-debian7

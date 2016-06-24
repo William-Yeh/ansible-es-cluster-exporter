@@ -1,0 +1,16 @@
+- hosts: all
+  become: True
+  tasks:
+    - include: 'tasks/main.yml'
+  handlers:
+    - include: 'handlers/main.yml'
+  vars_files:
+    - 'defaults/main.yml'
+
+  vars:
+    #elasticsearch_version: 2.3.3
+    prometheus_es_cluster_exporter_opts: "-es.uri=localhost:9200"
+
+  #roles:
+  #  - williamyeh.oracle-java
+  #  - williamyeh.elasticsearch

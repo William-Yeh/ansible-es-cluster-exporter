@@ -1,0 +1,12 @@
+---
+# file: handlers/main.yml
+#
+
+- name: restart es_cluster_exporter
+  service: name=es_cluster_exporter state=restarted
+
+- name: reload es_cluster_exporter
+  service: name=es_cluster_exporter state=reloaded
+
+- name: stop es_cluster_exporter
+  service: name=es_cluster_exporter state=stopped

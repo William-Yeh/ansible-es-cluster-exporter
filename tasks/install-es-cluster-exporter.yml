@@ -1,0 +1,46 @@
+---
+# file: tasks/install-es-cluster-exporter.yml
+#
+# Install Prometheus Elasticsearch cluster exporter.
+#
+# @see http://prometheus.io/docs/introduction/getting_started/
+#
+
+
+- name: set internal variables for convenience
+  set_fact:
+    prometheus_es_cluster_exporter_exe_url: "https://github.com/William-Yeh/es_cluster_exporter/releases/download/{{ prometheus_es_cluster_exporter_version }}/es_cluster_exporter.linux-x86_64"
+  when: ansible_userspace_bits == "64"
+
+- name: set internal variables for convenience
+  set_fact:
+    prometheus_es_cluster_exporter_exe_url: "https://github.com/William-Yeh/es_cluster_exporter/releases/download/{{ prometheus_es_cluster_exporter_version }}/es_cluster_exporter.linux-i386"
+  when: ansible_userspace_bits == "32"
+
+- name: download es_cluster_exporter executable
+  get_url:
+    url: "{{ prometheus_es_cluster_exporter_exe_url }}"
+    dest: "{{ prometheus_install_path }}/es_cluster_exporter"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "a+x,go-w"
+
+
+
+- name: set es_cluster_exporter variables
+  copy: src="../files/etc-default-es_cluster_exporter"  dest=/etc/default/es_cluster_exporter
+
+
+#- debug: var=prometheus_es_cluster_exporter_use_systemd
+
+- name: copy INIT script to server
+  template: src="../templates/es_cluster_exporter.sysvinit.{{ ansible_os_family|lower }}.sh.j2"  dest="/etc/init.d/es_cluster_exporter"  mode="a+x"
+  when: not prometheus_es_cluster_exporter_use_systemd|bool
+
+- name: copy systemd config to server
+  template: src="../templates/es_cluster_exporter.service.j2"  dest="/lib/systemd/system/es_cluster_exporter.service"
+  when: prometheus_es_cluster_exporter_use_systemd
+
+
+- name: set INIT status
+  service: name=es_cluster_exporter enabled=yes state=restarted

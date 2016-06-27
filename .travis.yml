@@ -22,12 +22,12 @@ script:
     - docker run  -v $(pwd):/data  es_cluster_exporter_centos6
 
     - echo "==> Validating the test results..."
-    - grep '^es_up' result-ubuntu14.04
-    - grep '^es_up' result-ubuntu12.04
-    - grep '^es_up' result-centos7
-    - grep '^es_up' result-centos6
-    - grep '^es_up' result-debian8
-    - grep '^es_up' result-debian7
+    - grep '^es_cluster_up' result-ubuntu14.04
+    - grep '^es_cluster_up' result-ubuntu12.04
+    - grep '^es_cluster_up' result-centos7
+    - grep '^es_cluster_up' result-centos6
+    - grep '^es_cluster_up' result-debian8
+    - grep '^es_cluster_up' result-debian7
 
 notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/

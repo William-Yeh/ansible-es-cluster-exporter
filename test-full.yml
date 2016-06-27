@@ -9,7 +9,7 @@
 
   vars:
     elasticsearch_version: 2.3.3
-    prometheus_es_cluster_exporter_opts: "-es.uri=localhost:9200"
+    prometheus_es_cluster_exporter_opts: "-es.uri=http://localhost:9200 -es.timeout=20s -es.all=true"
 
   roles:
     - williamyeh.oracle-java

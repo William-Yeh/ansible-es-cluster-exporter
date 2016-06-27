@@ -32,7 +32,7 @@ Install specific version of Elasticsearch cluster exporter:
 
 ```yaml
 # default version
-prometheus_es_cluster_exporter_version: 1.0.0
+prometheus_es_cluster_exporter_version: 1.1.0
 ```
 
 
@@ -119,7 +119,7 @@ Simple example:
 
   vars:
 
-    prometheus_es_cluster_exporter_opts: "-es.uri=localhost:9200 -web.listen-address=':9114' "
+    prometheus_es_cluster_exporter_opts: "-es.timeout=20s -web.listen-address=':9114' "
 ```
 
 

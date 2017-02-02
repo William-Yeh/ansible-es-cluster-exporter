@@ -13,10 +13,10 @@
 prometheus_user:   prometheus
 prometheus_group:  prometheus
 
-prometheus_es_cluster_exporter_version: 1.1.0
+prometheus_es_cluster_exporter_version: 1.2.0
 
 
-gosu_version: 1.9
+gosu_version: "1.10"
 
 
 prometheus_install_path:  /opt/prometheus

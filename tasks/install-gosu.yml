@@ -7,6 +7,8 @@
 #
 
 
+- debug: var=gosu_version
+
 - name: set internal variables for convenience
   set_fact:
     gosu_exe_url: "https://github.com/tianon/gosu/releases/download/{{ gosu_version }}/gosu-amd64"

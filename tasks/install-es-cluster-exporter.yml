@@ -39,8 +39,9 @@
 
 - name: copy systemd config to server
   template: src="../templates/es_cluster_exporter.service.j2"  dest="/lib/systemd/system/es_cluster_exporter.service"
-  when: prometheus_es_cluster_exporter_use_systemd
+  when: prometheus_es_cluster_exporter_use_systemd|bool
 
 
 - name: set INIT status
   service: name=es_cluster_exporter enabled=yes state=restarted
+  #ignore_errors: true

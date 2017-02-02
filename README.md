@@ -32,7 +32,7 @@ Install specific version of Elasticsearch cluster exporter:
 
 ```yaml
 # default version
-prometheus_es_cluster_exporter_version: 1.1.0
+prometheus_es_cluster_exporter_version: 1.2.0
 ```
 
 
@@ -80,7 +80,7 @@ prometheus_pid_path:       /var/run/prometheus
 
 
 # version of helper utility "gosu"
-gosu_version:  1.9
+gosu_version:  1.10
 ```
 
 
